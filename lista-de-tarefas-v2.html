@@ -1,19 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<h1>Lista de Tarefas / Forms</h1>
+<div class="container">
+    <nav></nav>
+    <h1>Lista de Tarefas</h1>
 
-  <form id="taskForm">
-    <input type="text"
-           id="taskTitle"
-           name="inputText"
-           placeholder="Informe o titulo da tarefa" required>
-    <button
-  </form>
+    <!-- Botões do topo -->
+    <div class="top-controls">
+        <button id="toggleTheme">🌗 Alternar Tema</button>
+        <button id="exportTasks">📤 Exportar</button>
+        <input type="file" id="importFile" accept=".json" hidden />
+        <button id="importTasks">📥 Importar</button>
+    </div>
 
+    <!-- Formulário para adicionar tarefas -->
+    <form id="taskForm">
+        <input
+                type="text"
+                id="taskTitle"
+                placeholder="Título da tarefa"
+                required
+        />
+        <input type="date" id="taskDate" required />
+        <input type="color" id="taskColor" value="#00bfff" />
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <!-- Lista de tarefas -->
+    <ul id="taskList"></ul>
+</div>
+
+<script src="scripts/script.js"></script>
 </body>
 </html>
