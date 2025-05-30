@@ -1,0 +1,174 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    padding-bottom: 50px;
+}
+
+/* Header */
+.header-bg {
+    background-color: #2c3e50;
+    color: white;
+    position: relative;
+}
+
+/* Logo Badge */
+.shield-badge {
+    display: inline-flex;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.left-part {
+    display: flex;
+    align-items: center;
+    background-color: #555;
+    color: white;
+    padding: 6px 12px;
+}
+
+.right-part {
+    background-color: #3498db;
+    color: white;
+    padding: 6px 15px;
+    font-weight: bold;
+}
+
+.shield-label {
+    margin-left: 8px;
+}
+
+/* New Task Button */
+.new-task-btn-container {
+    margin-top: 20px;
+}
+
+/* Garante que os modais fiquem acima de tudo */
+.modal {
+    z-index: 1060 !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0,0.3);
+}
+
+/* Estilo para o texto do modal de importação */
+#importModalText {
+    font-size: 1.1rem;
+}
+
+#taskCount {
+    font-weight: bold;
+    color: #3498db;
+}
+
+/* Task Cards */
+.task-card {
+    height: 100%;
+    transition: transform 0.2s;
+    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.task-card .card-img-top {
+    height: 150px;
+    object-fit: cover;
+}
+
+.task-card .placeholder-image {
+    height: 150px;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+}
+
+.task-card .placeholder-image i {
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+.task-card .card-body {
+    position: relative;
+}
+
+.task-card .card-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.task-card .card-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.task-card .task-date {
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.task-card .task-category {
+    position: absolute;
+    top: -15px;
+    right: 15px;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+}
+
+.task-card .task-category.aula {
+    background-color: #6f42c1;
+}
+
+.task-card .task-category.projeto {
+    background-color: #fd7e14;
+}
+
+.task-card .urgent-badge {
+    position: absolute;
+    top: -13px;
+    left: 10px;
+    background-color: #dc3545;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.task-card .task-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .header-bg .text-end {
+        text-align: left !important;
+        margin-top: 10px;
+    }
+
+    .shield-badge {
+        font-size: 14px;
+    }
+
+    #tasksContainer {
+        grid-template-columns: 1fr;
+    }
+}
