@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TasksKampus - Gestão de Tarefas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style_v-final.css">
+</head>
+<body class="modal-open">
+<!-- Header -->
+<header class="header-bg">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center py-3">
+            <div class="shield-badge">
+                    <span class="left-part">
+                        <i class="bi bi-journal-bookmark-fill"></i>
+                        <span class="shield-label">KampusClub</span>
+                    </span>
+                <span class="right-part">TasksKampus</span>
+            </div>
+            <div class="text-end text-white">
+                <p class="mb-0">Disciplina: Introdução a Algoritmos e Programação Web</p>
+                <p class="mb-0">Prof. Me. Robson Kerner Coelho dos Santos</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="container my-5">
+    <!-- New Task Button -->
+    <div class="new-task-btn-container mb-4">
+        <button id="toggleFormBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
+            <i class="bi bi-plus-lg"></i> Nova Tarefa
+        </button>
+        <button id="exportBtn" class="btn btn-outline-success">
+            <i class="bi bi-download"></i> Export
+        </button>
+        <button id="importBtn" class="btn btn-outline-success">
+            <i class="bi bi-upload"></i> Import
+            <input type="file" id="jsonFileInput" accept=".json" hidden />
+        </button>
+    </div>
+
+    <!-- Task Filters -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-2">
+            <select id="filterCategory" class="form-select">
+                <option value="all">Todas Categorias</option>
+                <option value="aula">Aulas</option>
+                <option value="projeto">Projetos</option>
+            </select>
+        </div>
+        <div class="col-md-4 mb-2">
+            <select id="filterStatus" class="form-select">
+                <option value="all">Todos Status</option>
+                <option value="pending">Pendentes</option>
+                <option value="urgent">Urgentes</option>
+                <option value="completed">Concluídas</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Tasks Container -->
+    <div id="tasksContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Tasks will be inserted here by JavaScript -->
+    </div>
+</main>
+
+<!-- Task Modal -->
+<div class="modal fade" id="taskModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nova Tarefa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="taskTitle" class="form-label">Título*</label>
+                            <input type="text" class="form-control" id="taskTitle" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="taskCategory" class="form-label">Categoria*</label>
+                            <select class="form-select" id="taskCategory" required>
+                                <option value="aula">Aula</option>
+                                <option value="projeto">Projeto</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="taskStart" class="form-label">Data Início*</label>
+                            <input type="date" class="form-control" id="taskStart" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="taskEnd" class="form-label">Data Término*</label>
+                            <input type="date" class="form-control" id="taskEnd" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="taskColor" class="form-label">Cor</label>
+                            <input type="color" class="form-control form-control-color" id="taskColor" value="#3498db">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="taskImage" class="form-label">Imagem (opcional)</label>
+                            <input type="file" class="form-control" id="taskImage" accept="image/*">
+                        </div>
+                        <div class="col-12">
+                            <label for="taskDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="taskDescription" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveTaskBtn">Salvar Tarefa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">TasksKampus</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toastMessage"></div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal (fixed in HTML) -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir esta tarefa?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import Confirmation Modal -->
+<div class="modal fade" id="importConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Importação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="importModalText">Deseja importar <span id="taskCount">0</span> tarefas? <br />Isso substituirá suas tarefas atuais.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmImportBtn">Importar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts/script_v-final.js"></script>
+</body>
+</html>
