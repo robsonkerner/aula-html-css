@@ -47,7 +47,15 @@
  ```bash
  git add .
  ```
- 
+
+Remover arquivo da Staging Area
+```bash
+git restore --staged nome_do_arquivo
+```
+Para remover todos os arquivos adicionados:
+```bash
+git restore --staged .
+```
  ---
  
  ## 💾 5. Fazer Commit
@@ -57,7 +65,14 @@
  ```bash
  git commit -m "Mensagem descritiva do commit"
  ```
- 
+
+| Objetivo                                            | Comando                    |
+| --------------------------------------------------- | -------------------------- |
+| Cancelar último commit, manter alterações e staging | `git reset --soft HEAD~1`  |
+| Cancelar commit, manter alterações (sem staging)    | `git reset --mixed HEAD~1` |
+| Apagar commit e alterações (⚠️)                     | `git reset --hard HEAD~1`  |
+| Desfazer commit com anti-commit                     | `git revert <hash>`        | 
+
  ---
  
  ## 🚀 6. Enviar para o Repositório Remoto

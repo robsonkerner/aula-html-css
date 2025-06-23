@@ -35,6 +35,7 @@ form.addEventListener('submit', e => {
 
     // Adiciona a nova tarefa ao array tarefas
     tarefas.push(nova);
+    console.log(tarefas);
 
     // Reseta os campos do formulário para vazio, preparando para nova entrada
     form.reset();
