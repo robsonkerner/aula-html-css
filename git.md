@@ -122,7 +122,33 @@ git restore --staged .
  ```bash
  git checkout -b nome-da-branch
  ```
- 
+
+## 🔀 11. Merge
+
+```bash
+# Inicia um repositório Git vazio
+git init meu-projeto
+cd meu-projeto
+
+# Cria um arquivo inicial
+echo "Versão inicial" > arquivo.txt
+git add .
+git commit -m "Commit inicial na main"
+
+# Cria uma nova branch chamada feature-login e muda para ela
+git checkout -b feature-login
+
+# Faz alterações na nova branch
+echo "Tela de login" >> arquivo.txt
+git add .
+git commit -m "Adiciona tela de login"
+
+# Volta para a branch main
+git checkout main
+
+# Faz merge da feature-login para a main
+git merge feature-login
+```
  ---
  
  ## 📌 Dica Final
@@ -133,4 +159,4 @@ git restore --staged .
  
  🛠️ **Versão:** 1.0  
  📅 **Última atualização:** Junho/2025  
- 👨‍💻 **Autor:** [Seu Nome Aqui]
+ 👨‍💻 **Autor:** Robson K C Santos
